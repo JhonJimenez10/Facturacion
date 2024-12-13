@@ -3,19 +3,19 @@
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         <div class="flex justify-between h-16">
             <div class="flex items-center space-x-4">
+                <!-- Menu Button for Sidebar -->
+                <div>
+                    <button @click="open = !open" aria-label="Toggle sidebar" class="text-white hover:text-blue-300 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
                 <!-- Logo -->
                 <div class="shrink-0">
                     <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-white" />
                     </a>
-                </div>
-                <!-- Menu Button for Sidebar -->
-                <div>
-                    <button @click="open = !open" class="text-white hover:text-blue-300 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
                 </div>
             </div>
 
@@ -55,7 +55,7 @@
     <div
         x-show="open"
         @click.away="open = false"
-        class="fixed inset-y-0 left-0 w-64 bg-blue-800 text-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out"
+        class="fixed inset-y-0 left-0 w-64 bg-blue-800 text-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-40"
         :class="{ '-translate-x-full': !open, 'translate-x-0': open }"
     >
         <!-- Profile Section -->
@@ -127,6 +127,19 @@
                         <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Subcategoría 3</a></li>
                     </ul>
                 </li>
+                <li x-data="{ open: false }">
+                    <button @click="activeSubMenu = activeSubMenu === 'asociados' ? null : 'asociados'" class="flex items-center w-full text-left px-4 py-2 hover:bg-blue-600 rounded focus:outline-none transition ease-in-out">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" />
+                        </svg>
+                        Asociados
+                    </button>
+                    <ul x-show="activeSubMenu === 'asociados'" class="pl-4 mt-2 space-y-2 bg-blue-700 rounded shadow-lg transition ease-in-out">
+                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">SRI</a></li>
+                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">IESS</a></li>
+                        <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">MRL</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
 
@@ -142,5 +155,10 @@
                 </button>
             </form>
         </div>
+    </div>
+
+    <!-- Content Adjustment -->
+    <div :class="{ 'pl-64': open }" class="transition-all duration-300">
+        <!-- Main Content Here -->
     </div>
 </nav>
