@@ -16,7 +16,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div x-data="{ open: false, activeSubMenu: null }" class="min-h-screen bg-gray-100 flex flex-col">
+        <div x-data="{ open: false, activeSubMenu: null, iframeSrc: '' }" class="min-h-screen bg-gray-100 flex flex-col">
             <!-- Barra de navegación -->
             <nav class="bg-blue-700 shadow-lg text-white">
                 <!-- Primary Navigation Menu -->
@@ -138,14 +138,36 @@
                             </ul>
                         </li>
                         <li x-data="{ open: false }">
+                            <button @click="activeSubMenu = activeSubMenu === 'reportes' ? null : 'reportes'" class="flex items-center w-full text-left px-4 py-2 hover:bg-blue-600 rounded focus:outline-none transition ease-in-out">
+                                 <i class="fas fa-file-alt w-5 h-5 mr-2"></i>
+                                 Reportes
+                            </button>
+                            <ul x-show="activeSubMenu === 'reportes'" class="pl-4 mt-2 space-y-2 bg-blue-700 rounded shadow-lg transition ease-in-out">
+                                <li><a href="http://127.0.0.1:8000/dashboard#" class="block px-4 py-2 hover:bg-blue-600 rounded">Ventas</a></li>
+                                <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Compras</a></li>
+                                <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Facturas</a></li>
+                            </ul>
+                        </li>
+                        <li x-data="{ open: false }">
                             <button @click="activeSubMenu = activeSubMenu === 'asociados' ? null : 'asociados'" class="flex items-center w-full text-left px-4 py-2 hover:bg-blue-600 rounded focus:outline-none transition ease-in-out">
                                 <i class="fas fa-handshake w-5 h-5 mr-2"></i>
                                 Asociados
                             </button>
                             <ul x-show="activeSubMenu === 'asociados'" class="pl-4 mt-2 space-y-2 bg-blue-700 rounded shadow-lg transition ease-in-out">
-                                <li><a href="https://srienlinea.sri.gob.ec/sri-en-linea/inicio/NAT" class="block px-4 py-2 hover:bg-blue-600 rounded" target="_blank">SRI</a></li>
-                                <li><a href="https://www.iess.gob.ec/" class="block px-4 py-2 hover:bg-blue-600 rounded" target="_blank">IESS</a></li>
-                                <li><a href="https://www.trabajo.gob.ec/" class="block px-4 py-2 hover:bg-blue-600 rounded" target="_blank">MRL</a></li>
+                                <li><a href="#" @click.prevent="iframeSrc = 'https://srienlinea.sri.gob.ec/sri-en-linea/inicio/NAT'" class="block px-4 py-2 hover:bg-blue-600 rounded">SRI</a></li>
+                                <li><a href="#" @click.prevent="iframeSrc = 'https://www.iess.gob.ec/'" class="block px-4 py-2 hover:bg-blue-600 rounded">IESS</a></li>
+                                <li><a href="#" @click.prevent="iframeSrc = 'https://sut.trabajo.gob.ec/'" class="block px-4 py-2 hover:bg-blue-600 rounded">MRL</a></li>
+                            </ul>
+                        </li>
+                        <li x-data="{ open: false }">
+                            <button @click="activeSubMenu = activeSubMenu === 'soporte' ? null : 'soporte'" class="flex items-center w-full text-left px-4 py-2 hover:bg-blue-600 rounded focus:outline-none transition ease-in-out">
+                                <i class="fas fa-life-ring w-5 h-5 mr-2"></i>
+                                Soporte
+                            </button>
+                            <ul x-show="activeSubMenu === 'soporte'" class="pl-4 mt-2 space-y-2 bg-blue-700 rounded shadow-lg transition ease-in-out">
+                                <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Subcategoría 1</a></li>
+                                <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Subcategoría 2</a></li>
+                                <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Subcategoría 3</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -157,6 +179,19 @@
                         @csrf
                         <button type="submit" class="w-full px-4 py-2 hover:bg-blue-600 rounded">Cerrar Sesión</button>
                     </form>
+                </div>
+            </div>
+
+            <!-- Contenedor del iframe -->
+            <div x-show="iframeSrc" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+                <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-4xl sm:w-full">
+                    <div class="bg-blue-700 px-4 py-2 flex justify-between items-center">
+                        <h3 class="text-lg leading-6 font-medium text-white">Contenido</h3>
+                        <button @click="iframeSrc = ''" class="text-white hover:text-blue-300">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <iframe :src="iframeSrc" class="w-full h-96"></iframe>
                 </div>
             </div>
 
