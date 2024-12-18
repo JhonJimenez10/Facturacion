@@ -44,6 +44,7 @@
                                     <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md bg-blue-600 hover:bg-blue-800 focus:outline-none transition ease-in-out">
                                         <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="h-8 w-8 rounded-full object-cover">
                                         <div class="ms-2">{{ Auth::user()->name }}</div>
+                                        <div class="ms-1 truncate overflow-hidden whitespace-nowrap">{{ Auth::user()->email }}</div>
                                         <div class="ms-1">
                                             <i class="fas fa-chevron-down fill-current h-4 w-4"></i>
                                         </div>
@@ -79,7 +80,7 @@
                         <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="h-10 w-10 rounded-full object-cover">
                         <div>
                             <div class="text-lg font-semibold">{{ Auth::user()->name }}</div>
-                            <div class="text-sm text-blue-300">{{ Auth::user()->email }}</div>
+                            <div class="text-sm text-blue-300 truncate overflow-hidden whitespace-nowrap">{{ Auth::user()->email }}</div>
                         </div>
                     </div>
                 </div>
@@ -143,7 +144,7 @@
                                  Reportes
                             </button>
                             <ul x-show="activeSubMenu === 'reportes'" class="pl-4 mt-2 space-y-2 bg-blue-700 rounded shadow-lg transition ease-in-out">
-                                <li><a href="http://127.0.0.1:8000/dashboard#" class="block px-4 py-2 hover:bg-blue-600 rounded">Ventas</a></li>
+                                <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Ventas</a></li>
                                 <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Compras</a></li>
                                 <li><a href="#" class="block px-4 py-2 hover:bg-blue-600 rounded">Facturas</a></li>
                             </ul>
